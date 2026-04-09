@@ -18,19 +18,23 @@ html_content = html_path.read_text(encoding="utf-8")
 # Get API Key from Streamlit Secrets
 api_key = st.secrets.get("OPENROUTER_API_KEY", "")
 
-# Debug info
+# Debug: Show API key status
 if api_key:
-    st.success(f"✅ API Key loaded! (First 20 chars: {api_key[:20]}...)")
+    st.success(f"✅ API Key loaded! (Length: {len(api_key)} chars)")
+    st.info(f"🔑 First 15 chars: {api_key[:15]}...")
 else:
     st.error("❌ OPENROUTER_API_KEY not found in secrets")
+    st.warning("Please add it in Settings → Secrets")
     st.stop()
 
-# Replace placeholder with actual key - ensure it works
+# Replace placeholder with actual key
 html_content = html_content.replace("{{OPENROUTER_API_KEY}}", api_key)
 
-# Also try alternative placeholder formats
-html_content = html_content.replace("{{ OPENROUTER_API_KEY }}", api_key)
-html_content = html_content.replace("${OPENROUTER_API_KEY}", api_key)
+# Verify replacement worked
+if "{{OPENROUTER_API_KEY}}" in html_content:
+    st.error("❌ Placeholder still exists in HTML - replacement failed!")
+else:
+    st.success("✅ API key successfully injected into HTML")
 
 # Render the app
 st.components.v1.html(html_content, height=1300, scrolling=True)
