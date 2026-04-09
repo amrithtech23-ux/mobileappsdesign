@@ -565,7 +565,7 @@ document.getElementById('generateWireframeBtn').addEventListener('click', () => 
 });
 
 // ==========================================
-// GENERATE ANGULAR FRAME (AI CALL) - FIXED
+// GENERATE ANGULAR FRAME (AI CALL) - CORRECTED
 // ==========================================
 document.getElementById('generateAngularBtn').addEventListener('click', async () => {
     // This placeholder should be replaced by Python/Streamlit
@@ -576,7 +576,7 @@ document.getElementById('generateAngularBtn').addEventListener('click', async ()
     console.log("Key length:", apiKey ? apiKey.length : 0);
     console.log("Key starts with:", apiKey ? apiKey.substring(0, 10) : "N/A");
     
-    // ✅ FIXED: Check if placeholder was replaced
+    // ✅ CORRECTED: Check if placeholder was replaced
     if (!apiKey || apiKey === "{{OPENROUTER_API_KEY}}" || apiKey.length < 10) {
         alert("⚠️ API Key is missing or invalid.\n\nExpected: A key starting with 'sk-or-v1-...'\nReceived: " + (apiKey || "empty") + "\n\nPlease check Streamlit secrets configuration.");
         return;
